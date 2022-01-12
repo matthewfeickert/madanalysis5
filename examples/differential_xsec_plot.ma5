@@ -1,0 +1,9 @@
+# differential cross-section plot
+# c.f. http://madanalysis.irmp.ucl.ac.be/wiki/FAQNormalMode
+install samples
+import /root/madanalysis5/samples/zz.lhe.gz as my_sample
+set my_sample.xsection = 123
+plot PT(e+[1])
+display selection[1]
+set main.lumi = 1e-3 * 10 # see the bin size up there
+set selection[1].titleY = "#frac{d#sigma}{dp_{T}} [pb/GeV]"
