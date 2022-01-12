@@ -6,6 +6,8 @@ WORKDIR /
 
 SHELL [ "/bin/bash", "-c" ]
 
+COPY . /root/madanalysis5
+
 # Set PATH to pickup virtualenv by default
 ENV PATH=/usr/local/venv/bin:"${PATH}"
 RUN apt-get -qq -y update && \
@@ -30,20 +32,16 @@ RUN apt-get -qq -y update && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
     python -m pip --no-cache-dir install pip-tools && \
     python -m pip list && \
-    printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> /root/.bashrc && \
-    printf '\nexport PATH=/root/madanalysis5/bin:"${PATH}"\n' >> /root/.bashrc
-
-COPY . /root/madanalysis5
-# printf '\nexport PATH='"$(find / -type d -iname madanalysis5)/bin"':"${PATH}"\n'
-RUN python -m piptools compile \
+    python -m piptools compile \
         --generate-hashes \
         --output-file /root/madanalysis5/requirements.lock \
         /root/madanalysis5/docker/requirements.txt && \
     python -m pip --no-cache-dir install --upgrade --requirement /root/madanalysis5/requirements.lock && \
     python -m pip list && \
     export PATH="$(find / -type d -iname madanalysis5)/bin:${PATH}" && \
-    python -c 'import multiprocessing; print(multiprocessing.cpu_count())' | ma5
-
+    python -c 'import multiprocessing; print(multiprocessing.cpu_count())' | ma5 && \
+    printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> /root/.bashrc && \
+    printf '\nexport PATH='"$(find / -type d -iname madanalysis5)/bin"':"${PATH}"\n' >> /root/.bashrc
 
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
