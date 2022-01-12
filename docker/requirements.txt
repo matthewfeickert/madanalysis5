@@ -1,3 +1,4 @@
-scipy>=1.7.0
-matplotlib>=3.5.0
-pyhf>=0.6.3
+six>=1.16.0  # required by ma5
+scipy>=1.7.0  # optional for reinterpretation
+pyhf>=0.6.3  # optional for reinterpretation
+matplotlib>=3.5.0  # optional for histogramming
