@@ -13,6 +13,7 @@ RUN apt-get -qq -y update && \
       gcc \
       g++ \
       make \
+      zlib1g \
       bash-completion \
       python3-dev \
       less \
@@ -40,6 +41,7 @@ RUN python -m piptools compile \
         /root/madanalysis5/docker/requirements.txt && \
     python -m pip --no-cache-dir install --upgrade --requirement /root/madanalysis5/requirements.lock && \
     python -m pip list && \
+    export PATH="$(find / -type d -iname madanalysis5)/bin:${PATH}" && \
     python -c 'import multiprocessing; print(multiprocessing.cpu_count())' | ma5
 
 
