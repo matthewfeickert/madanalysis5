@@ -57,7 +57,6 @@ ENV LANG=C.UTF-8
 ENV HOME /root
 WORKDIR ${HOME}/data
 
-
 ENV PATH="${HOME}/.local/bin:${PATH}"
 ENV PATH="/root/madanalysis5/bin:${PATH}"
 
