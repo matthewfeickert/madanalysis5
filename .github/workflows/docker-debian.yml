@@ -42,7 +42,7 @@ jobs:
           TAGS="$TAGS,${DOCKER_IMAGE}:latest,${DOCKER_IMAGE}:${MADANALYSIS_VERISON},${DOCKER_IMAGE}:sha-${GITHUB_SHA::8}"
           # Releases also have GITHUB_REFs that are tags, so reuse VERSION
           if [ "${{ github.event_name }}" = "release" ]; then
-            TAGS="ghcr.io/${REPO_NAME_LOWERCASE}:latest,ghcr.io/${REPO_NAME_LOWERCASE}:latest-stable,ghcr.io/${REPO_NAME_LOWERCASE}:${MADANALYSIS_VERISON}"
+            TAGS="ghcr.io/${REPO_NAME_LOWERCASE}:latest,ghcr.io/${REPO_NAME_LOWERCASE}:latest-stable,ghcr.io/${REPO_NAME_LOWERCASE}:${MADANALYSIS_VERISON},ghcr.io/${REPO_NAME_LOWERCASE}:sha-${GITHUB_SHA::8}"
           fi
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=tags::${TAGS}
@@ -127,7 +127,11 @@ jobs:
         with:
           context: .
           file: docker/Dockerfile
-          tags: ${{ steps.prep.outputs.tags }}
+          tags: |
+            ghcr.io/${{ steps.prep.outputs.repo_name_lowercase }}:latest
+            ghcr.io/${{ steps.prep.outputs.repo_name_lowercase }}:latest-stable
+            ghcr.io/${{ steps.prep.outputs.repo_name_lowercase }}:${{ steps.prep.outputs.MADANALYSIS_VERISON }}
+            ghcr.io/${{ steps.prep.outputs.repo_name_lowercase }}:sha-${GITHUB_SHA::8}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
