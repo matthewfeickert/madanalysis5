@@ -47,9 +47,7 @@ jobs:
           python=${{ matrix.python-version }}
           root=${{ matrix.root-version }}
           libzlib
-          libzlib-wapi
           zlib
-          zlib-wapi
           pip
         channels: conda-forge
 
