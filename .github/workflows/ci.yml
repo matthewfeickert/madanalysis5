@@ -69,23 +69,23 @@ jobs:
 
     - name: Print help message
       run: |
-        ./validation/scripts/validation_bootstrap -h
+        ./validation/scripts/validation_bootstrap --help
 
     - name: Validate Parton-Level analyses
       run: |
-        ./validation/scripts/validation_bootstrap -P
+        ./validation/scripts/validation_bootstrap --parton-level
 
     - name: Validate Hadron-Level analyses
       run: |
-        ./validation/scripts/validation_bootstrap -H
+        ./validation/scripts/validation_bootstrap --hadron-level
 
     - name: Validate Reco-Level analyses
       run : |
-        ./validation/scripts/validation_bootstrap -R
+        ./validation/scripts/validation_bootstrap --reco-level
 
     #- name : Validate Expert mode
     #  run : |
-    #    ./validation/scripts/validation_bootstrap -e
+    #    ./validation/scripts/validation_bootstrap --expert-mode
 
     - name : Validate FastJet interface
       run : |
