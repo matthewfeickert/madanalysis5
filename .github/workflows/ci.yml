@@ -69,6 +69,8 @@ jobs:
 
     - name: Print help message
       run: |
+        echo $PWD
+        ls -lhtra
         ./validation/scripts/validation_bootstrap --help
 
     - name: Validate Parton-Level analyses
